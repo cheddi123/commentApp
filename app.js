@@ -3,12 +3,15 @@ const morgan = require('morgan')
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const userRoutes = require("./routes/userRoutes")
 
 // Middleware
 app.use(express.urlencoded({extended:true}));
 app.use(express.json())
 app.use(morgan('tiny'))
 
+// Routes Middleware
+app.use("/",userRoutes)
 app.get("/",(req,res)=>{
     res.send("Welcome everyone") 
 })
