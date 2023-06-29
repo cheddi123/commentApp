@@ -22,6 +22,6 @@ router.post("/register",(req,res)=>{
 // Logout 
 router.get("/logout",(req,res)=>{
     console.log("I am logging out")
-    res.send("I am logging out")
+    res.send("<h3>I am logging out</h3>")
 })
 module.exports=router

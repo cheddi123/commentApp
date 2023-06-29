@@ -3,7 +3,7 @@ const morgan = require('morgan')
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const userRoutes = require("./routes/userRoutes")
+const authRoutes = require("./routes/authRoutes")
 
 // Middleware
 app.use(express.urlencoded({extended:true}));
@@ -11,9 +11,13 @@ app.use(express.json())
 app.use(morgan('tiny'))
 
 // Routes Middleware
-app.use("/",userRoutes)
+app.use("/blogsAPI/auth/",authRoutes)
 app.get("/",(req,res)=>{
     res.send("Welcome everyone") 
+})
+
+app.use((req,res)=>{
+	res.status(404).json("Page not found")
 })
 
 app.listen(PORT, (err) => {
