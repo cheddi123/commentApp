@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router()
+const {login,logout,register}=require("../controllers/authControllers")
 
 // get login page
 router.get("/login",(req,res)=>{
@@ -8,20 +9,11 @@ router.get("/login",(req,res)=>{
 );
 
 // Post login 
-router.post("/login",(req,res)=>{
-    console.log(req.body)
-    res.json(req.body)
-})
+router.post("/login",login)
 
 // Register a new user 
-router.post("/register",(req,res)=>{
-    console.log(req.body)
-    res.json(req.body)
-})
+router.post("/register",register)
 
 // Logout 
-router.get("/logout",(req,res)=>{
-    console.log("I am logging out")
-    res.send("<h3>I am logging out</h3>")
-})
+router.get("/logout",logout)
 module.exports=router
