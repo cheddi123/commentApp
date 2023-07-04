@@ -6,6 +6,7 @@ const {connectDB}= require("./config/connectDB")
 const app = express();
 const PORT = process.env.PORT || 3000;
 const authRoutes = require("./routes/authRoutes")
+const blogRoutes = require("./routes/blogRoutes")
 
 
 // Middleware
@@ -20,6 +21,7 @@ if(process.env.NODE_ENV=='development'){
 
 // Routes Middleware 
 app.use("/blogsAPI/auth/",authRoutes)
+app.use("blogsAPI/blogs/",blogRoutes)
 app.get("/",(req,res)=>{
     res.send("Welcome everyone") 
 })
