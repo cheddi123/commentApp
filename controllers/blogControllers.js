@@ -24,7 +24,7 @@ const postBlog =(req,res)=>{
 };
 
 // @route PUT
-// /blogsAPI/blogs
+// /blogsAPI/blogs/:id
 // @Desc : Update a blog
 // @Auth : private
 const updateBlog =(req,res)=>{
