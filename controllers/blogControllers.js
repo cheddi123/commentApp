@@ -2,7 +2,6 @@
 // /blogsAPI/blogs
 // @Desc : Get all blogs
 // @Auth : public
-
 const allBlogs =(req,res)=>{
     res.json("Get all blogs")
 };
