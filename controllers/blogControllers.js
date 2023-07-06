@@ -37,4 +37,10 @@ const updateBlog =(req,res)=>{
 const deleteBlog=(req,res)=>{
     res.json("Deleted a blog")
 }
+
+// @route GET
+// /blogsAPI/blogs/form
+// @Desc : Get a blog form 
+// @Auth : private
+
 module.exports={allBlogs,singleBlog,postBlog,updateBlog,deleteBlog}
