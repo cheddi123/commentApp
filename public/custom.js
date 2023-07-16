@@ -1,9 +1,9 @@
 
 
-tinymce.init({
+ /*tinymce.init({
     selector: '#textArea1'
   });
-  
+  */
   /* const input = document.querySelector('#email');
   input.addEventListener('change', (e) => {
     const isValid = e.target.checkValidity();

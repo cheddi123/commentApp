@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router()
-const {login,logout,register}=require("../controllers/authControllers")
+const {login,logout,register,loginForm,getRegister}=require("../controllers/authControllers")
 
 // get login page
-router.get("/login",(req,res)=>{
-    res.json("I am logging to enter into the app ")
-}
-);
+router.get("/login",loginForm);
+
+// get registration form
+router.get("/register",getRegister)
 
 // Post login 
 router.post("/login",login)
@@ -16,4 +16,4 @@ router.post("/register",register)
 
 // Logout 
 router.get("/logout",logout)
-module.exports=router
+module.exports=router  

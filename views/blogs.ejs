@@ -1,0 +1,76 @@
+<%- include('partials/header.ejs') -%>
+
+    <body>
+        <%- include('partials/navbar.ejs') -%>
+
+            <div class="container">
+                <% if(!allBlogs){%>
+                    <div class="spinner-border text-primary " role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <% }%>
+                        
+                        <div class="row">
+                            
+                            <% allBlogs.forEach(blog=>{%>
+
+                                <% const date=new Date(blog.createdAt) %>
+                                    <div class="col-auto p-0 m-3">
+                                        <div class=" card bg-secondary-subtle text-bg-success" style="width: 18rem;">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <%=blog.title %>
+                                                </h5>
+                                                <strong class="card-text text" id="commentBody">
+                                                    <%= blog.blog %>
+                                                </strong>
+                                                <div class="card-footer fs-6 text-info mb-2 bg-dark bg-opacity-50">
+                                                    Written by <strong class="text-capitalize">
+                                                        <%= blog.user.firstName%>
+                                                            <%=blog.user.lastName %>
+
+                                                    </strong>
+
+
+                                                </div>
+                                                <figure class="text-end bg-dark">
+
+                                                    <figcaption class="blockquote-footer text-white">
+                                                        Posted: <cite title="Source Title">
+                                                            <%= date.toDateString() %>
+                                                        </cite>
+                                                    </figcaption>
+                                                </figure>
+                                                <form action="/blogsAPI/blogs/<%=blog._id%>" method="get">
+                                                    <button type="submit" class="btn btn-primary position-relative">
+                                                                <strong>Read...</strong>
+                                                            <span
+                                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                                    
+                                                                     <%= blog.comment.length %>
+                                                           
+                                                                       <span class="visually-hidden">unread messages</span>
+                                                            </span>  
+
+                                                                    
+
+                                                                    
+                                                               
+                                                                
+                                                    </button>
+                                                </form>
+                                               
+                                           
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <%})%>
+                        </div>
+            </div>
+    </body>
+
+    </html>

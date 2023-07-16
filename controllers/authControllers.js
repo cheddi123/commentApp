@@ -2,9 +2,28 @@ const User = require('../Models/UserSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// @route GET
+// /blogsAPI/auth/login
+// @Desc : Get login form
+// @Auth : public
+const loginForm =(req,res)=>{
+    const errMessage = req.flash("error")
+    // console.log(message)
+    res.render('login.ejs',{errMessage}) 
+}
+
+// @route GET
+// /blogsAPI/auth/register
+// @Desc : Get registration form
+// @Auth : public
+const getRegister =(req,res)=>{
+    const errMessage = req.flash("error")
+    res.render("register.ejs",{errMessage})
+}
+
 // @route POST
 // /blogsAPI/auth/login
-// @Desc : Login user
+// @Desc : Login user 
 // @Auth : public
 const login = async (req, res) => {
 	let user = await User.findOne({
@@ -13,7 +32,7 @@ const login = async (req, res) => {
     //console.log(user)
 	if (!user) {
 		req.flash('error', 'Invalid email or password');
-		return res.status(400).json('Invalid email ');
+		return res.status(400).json('Invalid email or password ');
 		//return res.status(400).redirect("/user/form")
 	}
     
@@ -22,7 +41,7 @@ const login = async (req, res) => {
     console.log(req.body.password)
 	if (!isMatch) {
 		req.flash('error', 'Invalid email or password');
-		return res.status(400).json('Invalid password');
+		return res.status(400).json('Invalid password or email');
 		//return res.status(400).redirect("/user/form")
 	}
 
@@ -32,12 +51,12 @@ const login = async (req, res) => {
 
 	res
 		.cookie('x-auth-token', token, { maxAge: 1000 * 60 * 10, httpOnly: true })
-		.json('user logged in ');
+		.redirect("/blogsAPI/blogs");
 };
 
 // @route POST
 // /blogsAPI/auth/register
-// @Desc : register
+// @Desc : register a new person
 // @Auth : public
 const register = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
@@ -69,10 +88,12 @@ const register = async (req, res) => {
 		console.log(newUser);
 		res
 			.cookie('x-auth-token', token, { maxAge: 60 * 10 * 1000, httpOnly: true })
-			.json(newUser);
+			.redirect("/blogsAPI/blogs")
 	} catch (error) {
 		console.log(error.message);
-		res.status(400).json(error.message);
+        req.flash("error",error.message)
+		//res.status(400).json(error.message);
+        res.redirect("/blogsAPI/auth/register")
 	}
 };
 
@@ -82,8 +103,8 @@ const register = async (req, res) => {
 // @Auth : public
 const logout = (req, res) => {
 	console.log('I am logging out');
-	res.cookie("x-auth-token","",{maxAge:100}).json("I am logging out")
+	res.cookie("x-auth-token","",{maxAge:100}).redirect("/blogsAPI/auth/login")
     
 };
 
-module.exports = { login, logout, register };
+module.exports = { login, logout, register,loginForm,getRegister };

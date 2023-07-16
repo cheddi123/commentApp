@@ -1,0 +1,32 @@
+
+
+<nav class="nav bg-dark border-bottom border-bottom-dark text-white sticky-top">
+    <a class="nav-link active " aria-current="page" href="/blogsAPI/blogs/">Home</a>
+    <% if(!user){%>
+        <a class="nav-link justify-content-end" href="/blogsAPI/auth/login">Signin</a>
+        <a href="/blogsAPI/auth/register" class=" nav nav-link justify-content-end"> Register</a>
+    <%} else {%>
+        <a href="/blogsAPI/auth/logout" class=" nav nav-link justify-content-end"> SignOut</a>
+     <% } %>
+
+    
+    <a class="nav-link" href="/blogsAPI/blogs/form">CreateBlog</a>
+    
+
+    <% if(user){%>
+        <ul class=" justify-content-end">
+            <li class="nav-item ">
+                <h5>Welcome <%= user %>
+                </h5>
+            </li>
+
+        </ul>
+        <%}%>
+
+
+
+
+
+
+</nav>
+<script src="/custom.js"></script>

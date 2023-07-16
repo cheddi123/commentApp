@@ -1,0 +1,34 @@
+<%- include('partials/header.ejs') -%>
+
+<body>
+    <%- include('partials/navbar.ejs') -%>
+
+       <div id="alert" class="container">
+       <% if(errMessage!=""){ %>
+             <h5  class="alert alert-danger">
+                <%= errMessage %>
+            </h5>
+            <%}%>
+ </div>
+                <div class="container mt-3">
+                    <h2>Login</h2>
+                    <form action="/blogsAPI/auth/login" method="post">
+                        <div class="mb-3 mt-3">
+                            <label for="email">Email:</label>
+                            <input type="email" pattern="[^0-9]+[a-zA-Z0-9]+@[a-z0-9]+\.[a-zA-Z]{2,4}"
+                                data-error="Email must start with a letter from input" class="form-control" id="email"
+                                placeholder="Enter email" name="email" autocomplete="true">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" id="pwd" placeholder="Enter password"
+                                name="password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                
+</body>
+
+</html> 

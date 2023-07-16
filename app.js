@@ -12,15 +12,19 @@ const methodOverride = require('method-override')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Bring in userAuth
+const userAuth = require("./middleware/userAuth")
+
 
 const authRoutes = require("./routes/authRoutes")
 const blogRoutes = require("./routes/blogRoutes")
+const commentRoutes = require("./routes/commentRoutes")
 
 
 if(!process.env.JWT_SECRET_KEY){
     console.log("fatal error: secret jwtscertkey")
     process.exit(1);
-}
+} 
  
 // Middleware
 app.use(express.static('public'));
@@ -30,25 +34,29 @@ app.use(cookieParser())
 app.use(session({
     secret:process.env.SESSION_SECRET_KEY,
     cookie:{maxAge:6000}, 
-    saveUninitialized:false,
-    resave:false
+    saveUninitialized:false,   
+    resave:false   
 }))  
-app.use(flash());
+app.use(flash()); 
  
 if(process.env.NODE_ENV=='development'){ 
 	app.use(morgan('dev'))
-}  
-
+}         
+ 
+// Get Global variable  
+app.use(userAuth) 
 
 // override with POST having ?_method=DELETE 
 app.use(methodOverride('_method'))
 
-
+ 
 // Routes Middleware 
 app.use("/blogsAPI/auth/",authRoutes)
 app.use("/blogsAPI/blogs/",blogRoutes)
-app.get("/",(req,res)=>{
-    res.render("home.ejs") 
+app.use("/blogsAPI/comments/",commentRoutes)
+app.get("/",(req,res)=>{ 
+	let user = null;
+    res.render("home.ejs",{user})  
 })
 
 // Default page when there is no matching routes 
